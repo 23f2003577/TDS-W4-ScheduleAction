@@ -1,32 +1,15 @@
-name: Daily Commit Bot
-
+name: Master
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: '0 6 * * *'  # Runs daily at 06:00 UTC
-  workflow_dispatch:
-
 jobs:
-  commit-job:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true  # Important to enable git push
-          fetch-depth: 0  # Required for committing
-
+      - uses: actions/checkout@v4
       - name: 23f2003577@ds.study.iitm.ac.in
         run: |
-          echo "Last run: $(date -u)" > .github/last_run.txt
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/last_run.txt
-
-          # Only commit if file changed
-          if ! git diff --cached --quiet; then
-            git commit -m "🤖 Daily commit at $(date -u)"
-            git push
-          else
-            echo "⚠️ No changes to commit"
-          fi
+          "Running!"
